@@ -8,7 +8,7 @@ class Admin::Articles::PublishesController < ApplicationController
     @article.state = :published
 
     if @article.valid?
- 
+
       Article.transaction do
         @article.body = @article.build_body(self)
         @article.save!
