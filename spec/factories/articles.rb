@@ -28,6 +28,12 @@
 
 FactoryBot.define do
   factory :article do
-    
+    title { "title" }
+    #   sequence (:title, "title_1")
+    slug { "title" }
+    #   sequence (:slug, "title_1")
+    description { "This is a test description" }
+    uuid { "#{SecureRandom.uuid}"}
+    association :category
   end
 end

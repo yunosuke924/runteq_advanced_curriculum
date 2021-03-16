@@ -18,6 +18,8 @@
 
 FactoryBot.define do
   factory :category do
-    
+    type { "Category" }
+    name { "犬" }
+    slug { "dog" }
   end
 end
