@@ -27,7 +27,7 @@ RSpec.describe "Mediums", type: :system do
       end
     end
 
-    content '画像ファイルを添付する' do
+    context '画像ファイルを添付する' do
       it 'プレビューが表示される'
       it '公開ページが表示される'
     end
