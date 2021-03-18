@@ -19,7 +19,7 @@
 
       = simple_form_for @article, url: admin_article_path(@article.uuid) do |f|
         .box-body
-          - if @article.draft?
+          - if @article.draft? #記事は下書き
             .form-group
               label.control-label = Article.human_attribute_name(:state)
               .form-control = @article.state_i18n

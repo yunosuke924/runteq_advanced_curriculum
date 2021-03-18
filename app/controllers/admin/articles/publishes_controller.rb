@@ -9,14 +9,22 @@ class Admin::Articles::PublishesController < ApplicationController
 
     if @article.valid?
 
-      Article.transaction do
-        @article.body = @article.build_body(self)
-        @article.save!
+      if Time.current < @article.published_at
+        @article.state = :publish_wait
+        @article.save
+        flash[:notice] = '記事を公開待ちにしました'
+      else
+
+        Article.transaction do
+          @article.body = @article.build_body(self)
+          @article.save!
+        end
+
+        flash[:notice] = '記事を公開しました'
       end
 
-      flash[:notice] = '記事を公開しました'
-
       redirect_to edit_admin_article_path(@article.uuid)
+
     else
       flash.now[:alert] = 'エラーがあります。確認してください。'
 

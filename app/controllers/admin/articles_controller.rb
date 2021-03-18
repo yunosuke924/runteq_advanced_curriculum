@@ -34,9 +34,25 @@ class Admin::ArticlesController < ApplicationController
   def update
     authorize(@article)
 
+    # DBに2回保存(update,save)しているので、後でリファクタリングしても良いかも
     if @article.update(article_params)
-      flash[:notice] = '更新しました'
-      redirect_to edit_admin_article_path(@article.uuid)
+      unless @article.state == "draft"
+        #公開日が未来のとき
+        if Time.current < @article.published_at
+          @article.state = :publish_wait
+          @article.save
+          flash[:notice] = '更新しました'
+          redirect_to edit_admin_article_path(@article.uuid)
+        else
+          @article.state = :published
+          @article.save
+          flash[:notice] = '更新しました'
+          redirect_to edit_admin_article_path(@article.uuid)
+        end
+      else
+        flash[:notice] = '更新しました'
+        redirect_to edit_admin_article_path(@article.uuid)
+      end
     else
       render :edit
     end

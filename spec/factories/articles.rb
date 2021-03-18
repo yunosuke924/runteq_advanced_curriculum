@@ -28,12 +28,22 @@
 
 FactoryBot.define do
   factory :article do
-    title { "title" }
-    #   sequence (:title, "title_1")
-    slug { "title" }
-    #   sequence (:slug, "title_1")
+    sequence(:title) { |n| "title-#{n}" }
+    sequence(:slug) { |n| "slug-#{n}" }
     description { "This is a test description" }
     uuid { "#{SecureRandom.uuid}"}
     association :category
+    state { :draft }
+    published_at { Time.current }
+  end
+
+  trait :published_article do
+    state { :published }
+    published_at { Time.current.yesterday }
+  end
+
+  trait :publish_wait_article do
+    state { :publish_wait }
+    published_at { Time.current.tomorrow }
   end
 end
