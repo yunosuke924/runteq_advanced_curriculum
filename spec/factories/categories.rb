@@ -19,7 +19,7 @@
 FactoryBot.define do
   factory :category do
     type { "Category" }
-    name { "犬" }
-    slug { "dog" }
+    sequence(:name) { |n| "応用課題 #{n}" }
+    sequence(:slug) { |n| "advanced_exam_#{n}" }
   end
 end

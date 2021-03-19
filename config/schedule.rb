@@ -13,6 +13,12 @@ every 1.hours do
   # runner "MyModel.some_method"
   rake "publish:publish_past_articles"
 end
+
+every 1.minute do
+  # command "/usr/bin/some_great_command"
+  # runner "MyModel.some_method"
+  rake "publish:test"
+end
 #
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
