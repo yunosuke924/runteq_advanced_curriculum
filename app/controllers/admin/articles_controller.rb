@@ -37,6 +37,7 @@ class Admin::ArticlesController < ApplicationController
     # DBに2回保存(update,save)しているので、後でリファクタリングしても良いかも
     @article.assign_attributes(article_params)
     @article.adjust_state
+    @article.body = @article.build_body(self)
     if @article.save
       flash[:notice] = '更新しました'
       redirect_to edit_admin_article_path(@article.uuid)
@@ -62,7 +63,7 @@ class Admin::ArticlesController < ApplicationController
   end
 
   def search_params
-    params[:q]&.permit(:title, :category_id)
+    params[:q]&.permit(:title, :category_id, :tag_id, :author_id, :body)
   end
 
   def set_article

@@ -15,7 +15,7 @@ class Admin::Articles::PublishesController < ApplicationController
 
       flash[:notice] = @article.message_on_published
       redirect_to edit_admin_article_path(@article.uuid)
-      
+
     else
       flash.now[:alert] = 'エラーがあります。確認してください。'
 

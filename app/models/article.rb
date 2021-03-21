@@ -62,7 +62,10 @@ class Article < ApplicationRecord
   scope :viewable, -> { published.where('published_at < ?', Time.current) }
   scope :new_arrivals, -> { viewable.order(published_at: :desc) }
   scope :by_category, ->(category_id) { where(category_id: category_id) }
+  scope :by_author, ->(author_id) { where(author_id: author_id) }
+  scope :by_tag, ->(tag_id) { where(id: Tag.find(tag_id).article_tags.map(&:article_id)) }
   scope :title_contain, ->(word) { where('title LIKE ?', "%#{word}%") }
+  scope :body_contain, ->(word) { where('body LIKE ?', "%#{word}%") }
   scope :past_published, -> { where('published_at <= ?', Time.current) }
 
   def build_body(controller)
@@ -71,7 +74,7 @@ class Article < ApplicationRecord
     article_blocks.each do |article_block|
       result << if article_block.sentence?
                   sentence = article_block.blockable
-                  sentence.body ||= ''
+                  sentence.body ||= '' # nilガード 文章があればそれを、なければ空白を返す。
                 elsif article_block.medium?
                   medium = ActiveDecorator::Decorator.instance.decorate(article_block.blockable)
                   controller.render_to_string("shared/_media_#{medium.media_type}", locals: { medium: medium }, layout: false)
@@ -90,9 +93,9 @@ class Article < ApplicationRecord
 
   def adjust_state
     return if draft?
+
     self.state = publishable? ? :published : :publish_wait
   end
-
 
   def prev_article
     @prev_article ||= Article.viewable.order(published_at: :desc).find_by('published_at < ?', published_at)

@@ -40,6 +40,8 @@ class Admin::Articles::ArticleBlocksController < ApplicationController
       else
         head :ok
       end
+      @article.body = @article.build_body(self)
+      @article.save!
     else
       render action: :edit, status: :bad_request
     end
