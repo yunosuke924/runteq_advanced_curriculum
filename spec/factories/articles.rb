@@ -30,20 +30,52 @@ FactoryBot.define do
   factory :article do
     sequence(:title) { |n| "title-#{n}" }
     sequence(:slug) { |n| "slug-#{n}" }
-    description { "This is a test description" }
-    uuid { "#{SecureRandom.uuid}"}
-    association :category
+    category
+  end
+
+  trait :draft do
     state { :draft }
-    published_at { Time.current }
   end
 
-  trait :published_article do
-    state { :published }
-    published_at { Time.current.yesterday }
-  end
-
-  trait :publish_wait_article do
+  trait :future do
+    published_at { DateTime.now.since(1.hours) }
     state { :publish_wait }
-    published_at { Time.current.tomorrow }
+  end
+
+  trait :past do
+    published_at { DateTime.now.ago(1.hours) }
+    state { :published }
+  end
+
+  trait :with_author do
+    transient do
+      sequence(:author_name) { |n| "test_author_name_#{n}" }
+      sequence(:tag_slug) { |n| "test_author_slug_#{n}" }
+    end
+
+    after(:build) do |article, evaluator|
+      article.author = build(:author, name: evaluator.author_name, slug: evaluator.tag_slug)
+    end
+  end
+
+  trait :with_tag do
+    transient do
+      sequence(:tag_name) { |n| "test_tag_name_#{n}" }
+      sequence(:tag_slug) { |n| "test_tag_slug_#{n}" }
+    end
+
+    after(:build) do |article, evaluator|
+      article.tags << build(:tag, name: evaluator.tag_name, slug: evaluator.tag_slug)
+    end
+  end
+
+  trait :with_sentence do
+    transient do
+      sequence(:sentence_body) { |n| "test_body_#{n}" }
+    end
+
+    after(:build) do |article, evaluator|
+      article.sentences << create(:sentence, body: evaluator.sentence_body)
+    end
   end
 end

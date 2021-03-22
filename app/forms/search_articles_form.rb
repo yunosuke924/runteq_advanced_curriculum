@@ -24,8 +24,12 @@ class SearchArticlesForm
     # 著者が与えられていれば付与
     relation = relation.by_author(author_id) if author_id.present?
     # 本文が与えられていれば付与
+    # body_words.each do |word|
+    #   relation = relation.body_contain(word)
+    # end
+    # 本文が与えられていれば付与(改変)
     body_words.each do |word|
-      relation = relation.body_contain(word)
+      relation = relation.body_has(word)
     end
 
     relation

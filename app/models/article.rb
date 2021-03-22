@@ -65,7 +65,9 @@ class Article < ApplicationRecord
   scope :by_author, ->(author_id) { where(author_id: author_id) }
   scope :by_tag, ->(tag_id) { where(id: Tag.find(tag_id).article_tags.map(&:article_id)) }
   scope :title_contain, ->(word) { where('title LIKE ?', "%#{word}%") }
-  scope :body_contain, ->(word) { where('body LIKE ?', "%#{word}%") }
+  # scope :body_contain, ->(word) { where('body LIKE ?', "%#{word}%") }
+  # 本文検索の別パターン
+  scope :body_has, ->(word) { where(id: Sentence.where('body LIKE ?', "%#{word}%").map(&:article)) }
   scope :past_published, -> { where('published_at <= ?', Time.current) }
 
   def build_body(controller)
