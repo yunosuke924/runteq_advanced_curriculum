@@ -60,6 +60,6 @@ class ApplicationController < ActionController::Base
 
   def rescue403
     flash[:alert] = 'アクセスが制限されています'
-    render file: 'public/403', status: 403
+    render file: 'public/403', status: :forbidden
   end
 end
