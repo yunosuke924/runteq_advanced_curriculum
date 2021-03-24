@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  rescue_from Pundit::NotAuthorizedError, with: :rescue403
+
   before_action :require_login
   before_action :current_site
   before_action :init_components
@@ -54,5 +56,10 @@ class ApplicationController < ActionController::Base
       new_arrivals: true,
       categories: true
     }
+  end
+
+  def rescue403
+    flash[:alert] = 'アクセスが制限されています'
+    render file: 'public/403'
   end
 end
