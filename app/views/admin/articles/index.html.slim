@@ -10,9 +10,9 @@
       .ul.list-inline
         li
           = form_with model: @search_articles_form, scope: :q, url: admin_articles_path, method: :get, html: { class: 'form-inline' } do |f|
-            => f.select :category_id, Category.pluck(:name, :id) , { include_blank: true }, class: 'form-control'
-            => f.select :tag_id, Tag.pluck(:name, :id) , { include_blank: true }, class: 'form-control'
-            => f.select :author_id, Author.pluck(:name, :id) , { include_blank: true }, class: 'form-control'
+            => f.select :category_id, Category.pluck(:name, :id) , { include_blank:  'カテゴリ' }, class: 'form-control'
+            => f.select :tag_id, Tag.pluck(:name, :id) , { include_blank: 'タグ' }, class: 'form-control'
+            => f.select :author_id, Author.pluck(:name, :id) , { include_blank: '著者' }, class: 'form-control'
             .input-group  
               = f.search_field :title, class: 'form-control', placeholder: "タイトル"
             .input-group 

@@ -30,29 +30,29 @@ FactoryBot.define do
   factory :article do
     sequence(:title) { |n| "title-#{n}" }
     sequence(:slug) { |n| "slug-#{n}" }
-    category
-  end
-
-  trait :draft do
+    description { "This is a test description" }
+    uuid { "#{SecureRandom.uuid}"}
+    association :category
     state { :draft }
+    published_at { Time.current }
   end
-
-  trait :future do
-    published_at { DateTime.now.since(1.hours) }
-    state { :publish_wait }
-  end
-
-  trait :past do
-    published_at { DateTime.now.ago(1.hours) }
+  # 公開済みの記事
+  trait :published_article do
     state { :published }
+    published_at { Time.current.yesterday }
+  end
+  # 公開待ちの記事
+  trait :publish_wait_article do
+    state { :publish_wait }
+    published_at { Time.current.tomorrow }
   end
 
+  #  以下模範解答
   trait :with_author do
     transient do
       sequence(:author_name) { |n| "test_author_name_#{n}" }
       sequence(:tag_slug) { |n| "test_author_slug_#{n}" }
     end
-
     after(:build) do |article, evaluator|
       article.author = build(:author, name: evaluator.author_name, slug: evaluator.tag_slug)
     end
