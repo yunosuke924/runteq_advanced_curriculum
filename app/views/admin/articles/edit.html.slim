@@ -35,8 +35,7 @@
             br
             br
           = f.input :eyecatch_width, min: 100, max: 700
-          / = f.input '左', as: :radio_buttons
-          = f.input :eyecatch_position, collection: [["左寄せ", "left"],["中央", "center"],["右寄せ", "right"]], checked: "#{ @article.eyecatch_position }", as: :radio_buttons
+          = f.input_field :eyecatch_position, as: :radio_buttons
           = f.input :description, input_html: { class: 'js-autosize' }
           = f.input :author_id, as: :select2, collection: Author.pluck(:name, :id)
           = f.input :category_id, as: :select2, collection: Category.pluck(:name, :id)

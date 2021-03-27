@@ -18,24 +18,21 @@
 
 FactoryBot.define do
   factory :user do
-    sequence(:name) { |n| "admin-#{n}" }
-    password { 'password' }
-    password_confirmation { 'password' }
-    role { :admin }
+    sequence(:name, "writer_1")
+    password { "password" }
+    password_confirmation { "password"}
+    role { :writer }
+    created_at { Time.current }
+    updated_at { Time.current }
 
     trait :admin do
-      sequence(:name) { |n| "admin-#{n}" }
+      sequence(:name, "admin_1")
       role { :admin }
     end
 
     trait :editor do
-      sequence(:name) { |n| "editor-#{n}" }
+      sequence(:name, "editor_1")
       role { :editor }
-    end
-
-    trait :writer do
-      sequence(:name) { |n| "writer-#{n}" }
-      role { :writer }
     end
   end
 end

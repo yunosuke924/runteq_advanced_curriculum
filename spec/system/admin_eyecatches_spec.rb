@@ -1,17 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe 'AdminArticlesEyecatch', type: :system do
+RSpec.describe "AdminEyecatches", type: :system do
+  let!(:site){ create(:site) }
   let!(:article) { create :article }
   let(:admin) { create :user, :admin }
 
   before do
-    login(admin)
+    sign_in_as(admin)
     visit admin_articles_path
     click_link '編集', href: edit_admin_article_path(article.uuid)
     click_button '更新する'
     attach_file 'article[eye_catch]', "#{Rails.root}/spec/fixtures/images/runteq_man.jpg"
   end
-
   describe 'アイキャッチの横幅を変更' do
     context '横幅を100~700pxに指定した場合' do
       it '記事の更新に成功し、プレビューでアイキャッチが確認できる' do
@@ -49,7 +49,7 @@ RSpec.describe 'AdminArticlesEyecatch', type: :system do
   describe 'アイキャッチの表示位置を変更' do
     context 'アイキャッチ画像を「右寄せ」に設定した場合' do
       it 'アイキャッチが「右寄せ」で表示される' do
-        choose '右寄せ'
+        choose "右寄せ"
         click_button '更新する'
         click_link 'プレビュー'
         switch_to_window(windows.last)

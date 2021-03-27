@@ -12,6 +12,9 @@
 
 FactoryBot.define do
   factory :site do
-    
+    name { "blog" }
+    subtitle { "very awesome" }
+    created_at { Time.current }
+    updated_at { Time.current }
   end
 end

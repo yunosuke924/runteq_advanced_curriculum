@@ -15,9 +15,14 @@ ja:
         draft: '下書き'
         published: '公開'
         publish_wait: '公開待ち'
+      eyecatch_position:
+        left: '左寄せ'
+        center: '中央'
+        right: '右寄せ'
     medium:
       media_type:
         image: '画像'
     embed:
       embed_type:
         youtube: 'YouTube'
+        twitter: 'Twitter'
