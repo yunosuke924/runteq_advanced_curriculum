@@ -5,10 +5,11 @@ module ArticleBlockDecorator
     elsif medium?
       '<i class="fa fa-image"></i>'.html_safe
     elsif embed?
-      embed = ActiveDecorator::Decorator.instance.decorate(blockable)
-      if embed.youtube?
+      embed = blockable
+      case embed.embed_type
+      when 'youtube'
         '<i class="fa fa-youtube-play"></i>'.html_safe
-      elsif embed.twitter?
+      when 'twitter'
         '<i class="fa fa-twitter"></i>'.html_safe
       end
     end
