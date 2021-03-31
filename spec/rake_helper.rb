@@ -1,3 +1,4 @@
+# 参考 https://qiita.com/aeroastro/items/c97bd26ce8b8818b6bed
 require 'rails_helper'
 require 'rake'
 RSpec.configure do |config|
