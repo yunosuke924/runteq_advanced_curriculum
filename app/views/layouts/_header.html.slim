@@ -1,5 +1,22 @@
-header.jumbotron.jumbotron-fluid
-  .container
-    h1 = link_to current_site.name, root_path
-    p.lead = current_site.subtitle
-
+ruby:
+  site = Site.find(current_site.id)
+  images = site.main_images
+/! Slider全体のコンテナ
+.swiper-container
+  /! Sliderの内包コンテナ
+  .swiper-wrapper
+    - images.each do |image|
+      = image_tag image, class: 'swiper-slide'
+        h1 = link_to current_site.name, root_path
+        p.lead = current_site.subtitle
+    /! Slideさせたいコンテンツ
+    .swiper-slide.jumbotron
+      h1 = link_to current_site.name, root_path
+      p.lead = current_site.subtitle
+  /! ページネーション（※省略可）
+  .swiper-pagination
+  /! ナビゲーションボタン（※省略可）
+  .swiper-button-prev
+  .swiper-button-next
+  /! スクロールバー（※省略可）
+  .swiper-scrollbar

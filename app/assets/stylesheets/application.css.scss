@@ -13,9 +13,24 @@
  *= require_self
  */
 
+@import 'swiper/swiper-bundle';
+
 .jumbotron {
-  background: url('/images/cover.jpg') center / cover;
+  background: url('/images/my_cover.jpg') center / cover;
   color: white;
+
+  a {
+    color: white;
+  }
+}
+
+.figure {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
 
   a {
     color: white;
@@ -76,4 +91,9 @@
     width: 100% !important;
     height: 100% !important;
   }
+}
+
+.swiper-container {
+  width: 600px;
+  height: 300px;
 }

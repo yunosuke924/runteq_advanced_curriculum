@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  # namespace :admin do
+  #   get 'attachments/destory'
+  # end
+  # namespace :admin do
+  #   get 'favicons/destory'
+  # end
+  # namespace :admin do
+  #   get 'main_images/:id'
+  # end
   namespace :admin do
     namespace :articles do
     end
@@ -13,6 +22,8 @@ Rails.application.routes.draw do
       resource :identifier, only: %i[show create]
       resource :password, only: %i[show create]
     end
+
+    resources :attachments, only: %i[destroy]
     resource :logout, only: %i[destroy]
     resource :dashboard, only: %i[show]
     resources :users
@@ -40,4 +51,5 @@ Rails.application.routes.draw do
   get '/:category_slug/:article_slug', as: :article, to: 'articles#show'
 
   root 'articles#index'
+
 end

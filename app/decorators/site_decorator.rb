@@ -17,4 +17,9 @@ module SiteDecorator
 
     command ? og_image.variant(command).processed : og_image
   end
+
+  # def main_images_url(sizes ='300x200') 
+  #   return nil unless main_images.attached?
+  #   main_images.variant(resize: sizes).processed
+  # end
 end
