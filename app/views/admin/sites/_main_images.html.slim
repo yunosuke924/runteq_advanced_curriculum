@@ -1,8 +1,7 @@
 - if site.main_images.attached?
-  - site.main_images.each do |main_image|
-    = image_tag main_image.variant(resize: '300x100').processed, class: 'main_image'
-    div.delete-button
-      div
+  .main_images_box
+    - site.main_images.each do |main_image|
+      .main-image
+        = image_tag main_image.variant(resize: '300x100').processed, class: 'main_image'
+        br
         = link_to '削除', admin_attachment_path(main_image), method: :delete, class: %w[btn btn-danger]
-  br
-  br

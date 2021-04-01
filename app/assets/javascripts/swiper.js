@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(){
     },
 
     autoplay: {
-      delay: 5000,
+      delay: 3000,
     },
 
     // Navigation arrows

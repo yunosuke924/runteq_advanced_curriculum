@@ -2,21 +2,23 @@ ruby:
   site = Site.find(current_site.id)
   images = site.main_images
 /! Slider全体のコンテナ
-.swiper-container
-  /! Sliderの内包コンテナ
-  .swiper-wrapper
-    - images.each do |image|
-      = image_tag image, class: 'swiper-slide'
-        h1 = link_to current_site.name, root_path
-        p.lead = current_site.subtitle
-    /! Slideさせたいコンテンツ
-    .swiper-slide.jumbotron
-      h1 = link_to current_site.name, root_path
-      p.lead = current_site.subtitle
-  /! ページネーション（※省略可）
-  .swiper-pagination
-  /! ナビゲーションボタン（※省略可）
-  .swiper-button-prev
-  .swiper-button-next
-  /! スクロールバー（※省略可）
-  .swiper-scrollbar
+header
+  .swiper-container
+    /! Sliderの内包コンテナ
+    .swiper-wrapper
+      - if images.present? 
+        - images.each do |image|
+          = image_tag image, class: 'swiper-slide'
+      - else
+        = image_tag '/images/cover.jpg', class: 'swiper-slide'
+
+    /! ページネーション（※省略可）
+    .swiper-pagination
+    /! ナビゲーションボタン（※省略可）
+    .swiper-button-prev
+    .swiper-button-next
+    /! スクロールバー（※省略可）
+    .swiper-scrollbar
+  .container.blog-title
+    h1 = link_to current_site.name, root_path
+    p.lead = current_site.subtitle
