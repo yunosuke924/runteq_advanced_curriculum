@@ -19,6 +19,13 @@ every 1.minute do
   # runner "MyModel.some_method"
   rake "publish:test"
 end
+
+# 毎朝9時にメールを送るタスクを実行
+every :day, at: "9:00 am" do
+# every 1.minute do
+  rake "send_mail:pulished_article"
+end
+
 #
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
